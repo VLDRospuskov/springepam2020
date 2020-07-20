@@ -1,12 +1,10 @@
 package com.epam.springepam2020;
 
+import org.springframework.stereotype.Component;
+
 public class Flag implements Subject {
 
     Color color;
-
-    public Flag(Color color) {
-        this.color = color;
-    }
 
     public Color getColor() {
         return color;
