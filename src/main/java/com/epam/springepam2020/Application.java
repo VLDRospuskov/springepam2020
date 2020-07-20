@@ -36,6 +36,13 @@ public class Application {
         Sith sith2 = annContext.getBean("sith", Sith.class);
         System.out.println(sith.toString());
         System.out.println(sith == sith2);
+
+        // GET PUT POST DELETE
+        // CRUD - create read update delete
+        // create(POST) read(GET) update(PUT) delete(DELETE)
+        // thymeleaf jsp freemaker mustache -> thymeleaf
+        // tomcat
+        // postgresql
     }
 
 }
