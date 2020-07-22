@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add stormtrooper</title>
+</head>
+<body>
+
+<form action="#" th:action="@{/addStormtrooper}" th:object="${stormtrooper}" method="post">
+    <div class = "row">
+        <div>
+            <label for="name">Name</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Name">
+        </div>
+        <div>
+            <label for="weapon">Weapon</label>
+            <input type="text" th:field="*{weapon}" class="form-control" id="weapon" placeholder="Weapon">
+        </div>
+    </div>
+    <div class="row">
+        <input type="submit" class="brn btn-primary" value="Add stormtrooper">
+    </div>
+</form>
+
+</body>
+</html>

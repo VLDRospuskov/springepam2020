@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<h2>List of stormtroopers</h2>
+<body>
+    <tr th:each = "stormtrooper : ${listStormtroopers}">
+        <td><span th:text = ${stormtrooper.name}> Name</span></td>
+        <td><span th:text = ${stormtrooper.weapon}> Weapon</span></td>
+        <br>
+    </tr>
+
+<p><a href="/addStormtrooper">Add stormtrooper</a></p>
+</body>
+</html>

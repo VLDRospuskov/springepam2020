@@ -11,7 +11,7 @@
 
     <context:component-scan base-package="com.epam.springepam2020"/>
 
-    <bean scope="prototype" id="stormtrooper" class="com.epam.springepam2020.Stormtrooper">
+    <bean scope="prototype" id="stormtrooper" class="com.epam.springepam2020.model.Stormtrooper">
         <constructor-arg ref="weapon"/>
         <property name="name" value="Stormtropper name!"/>
     </bean>
