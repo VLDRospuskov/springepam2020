@@ -18,7 +18,7 @@
 
     <bean id="flag" class="com.epam.springepam2020.Flag"/>
 
-<!--    <bean id="weapon" class="com.epam.springepam2020.Weapon">-->
+<!--    <bean id="weapon" class="com.epam.springepam2020.model.Weapon">-->
 <!--        <constructor-arg value="Blaster-Bean"/>-->
 <!--    </bean>-->
 

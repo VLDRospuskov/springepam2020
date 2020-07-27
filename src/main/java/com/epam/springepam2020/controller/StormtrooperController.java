@@ -1,43 +1,61 @@
 package com.epam.springepam2020.controller;
 
 import com.epam.springepam2020.model.Stormtrooper;
+import com.epam.springepam2020.service.StormtrooperService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class StormtrooperController {
 
-    List<Stormtrooper> stormtroopers = new ArrayList<>();
+    @Autowired
+    private StormtrooperService stormtrooperService;
 
     // GetAll
-    @GetMapping("/listStormtroopers")
+    @GetMapping("/")
     public String getAllStormtroopers(Model model) {
+        List<Stormtrooper> stormtroopers = stormtrooperService.getAll();
         model.addAttribute("listStormtroopers", stormtroopers);
         return "listStormtroopers";
     }
 
     // Add
     @GetMapping("/addStormtrooper")
-    public String getFormStormtrooper(Stormtrooper stormtrooper) {
+    public String getFormStormtrooper(Model model) {
+        Stormtrooper stormtrooper = stormtrooperService.getNewStormtrooper();
+        model.addAttribute("stormtrooper", stormtrooper);
         return "addStormtrooper";
     }
 
-    @PostMapping("/addStormtrooper")
-    public String addStormtrooper(Stormtrooper stormtrooper) {
-        List<Stormtrooper> stormtroopers = generateStormtroopers();
-        stormtroopers.add(stormtrooper);
-        return "redirect:/listStormtroopers";
+    @PostMapping("/save")
+    public String addStormtrooper(Stormtrooper stormtrooper, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "addStormtrooper";
+        }
+        stormtrooperService.save(stormtrooper);
+        return "redirect:/";
     }
 
-    private List<Stormtrooper> generateStormtroopers() {
-        stormtroopers.add(new Stormtrooper("stormtrooper1", "blaster"));
-        stormtroopers.add(new Stormtrooper("stormtrooper2", "blaste2"));
-        stormtroopers.add(new Stormtrooper("stormtrooper3", "blaster3"));
-        return stormtroopers;
+    // Delete
+    @GetMapping("/delete/{id}")
+    public String deleteStormtrooper(@PathVariable("id") Integer id) {
+        stormtrooperService.deleteById(id);
+        return "redirect:/";
     }
+
+    // Update
+    @GetMapping("/update/{id}")
+    public String editStormtrooper(@PathVariable("id") Integer id, Model model) {
+        Stormtrooper updatedStormtrooper = stormtrooperService.updateById(id);
+        model.addAttribute("stormtrooper", updatedStormtrooper);
+        return "updateStormtrooper";
+    }
+
 }

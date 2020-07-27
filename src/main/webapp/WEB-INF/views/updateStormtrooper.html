@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Add stormtrooper</title>
+    <title>Update stormtrooper</title>
 </head>
 <body>
 
 <tr align="center">
-    <h2>Create new stormtrooper</h2>
+    <h2>Update new stormtrooper</h2>
     <br>
     <br>
 
@@ -25,12 +25,6 @@
                 <td>
                     <input type="text" th:field="*{name}">
                 </td>
-            </tr>
-
-            <tr>
-                <td>Age</td>
-                <td><input type="text" th:field="*{age}"></td>
-                <td th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></td>
             </tr>
 
             <tr>
