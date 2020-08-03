@@ -5,26 +5,24 @@ import com.epam.springepam2020.exception.StormtrooperException;
 import com.epam.springepam2020.model.Stormtrooper;
 import com.epam.springepam2020.service.StormtrooperService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class StormtrooperServiceImpl implements StormtrooperService {
 
-    private final StormtrooperDao stormtrooperDao;
+    private StormtrooperDao stormtrooperDao;
 
+    public StormtrooperServiceImpl(@Qualifier("StormtrooperDaoImplJdbcTemplate")StormtrooperDao stormtrooperDao) {
+        this.stormtrooperDao = stormtrooperDao;
+    }
 
     @Override
     public List<Stormtrooper> getAll() {
         return stormtrooperDao.getAll();
-    }
-
-    @Override
-    public Stormtrooper getNewStormtrooper() {
-        return stormtrooperDao.getNewStormtrooper();
     }
 
     @Override
@@ -39,7 +37,7 @@ public class StormtrooperServiceImpl implements StormtrooperService {
 
     @Override
     public void deleteById(Integer id) {
-        getAll().removeIf(stormtrooper -> stormtrooper.getId().equals(id));
+        stormtrooperDao.deleteById(id);
     }
 
     @Override
@@ -47,7 +45,7 @@ public class StormtrooperServiceImpl implements StormtrooperService {
         if (checkIfStormtrooperNameIsExist(stormtrooper)) {
             throw new StormtrooperException("Stormtrooper with that name is already exist");
         } else {
-            getAll().add(stormtrooper);
+            stormtrooperDao.save(stormtrooper);
         }
     }
 

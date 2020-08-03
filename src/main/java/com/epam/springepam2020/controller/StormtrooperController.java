@@ -29,8 +29,7 @@ public class StormtrooperController {
     // Add
     @GetMapping("/addStormtrooper")
     public String getFormStormtrooper(Model model) {
-        Stormtrooper stormtrooper = stormtrooperService.getNewStormtrooper();
-        model.addAttribute("stormtrooper", stormtrooper);
+        model.addAttribute("stormtrooper", new Stormtrooper());
         return "addStormtrooper";
     }
 

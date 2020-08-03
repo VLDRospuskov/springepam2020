@@ -14,9 +14,8 @@
     <form action="#" th:action="@{/save}" th:object="${stormtrooper}" method="post">
         <table border="0", cellpadding="10">
             <tr>
-                <td>ID</td>
                 <td>
-                    <input type="text" th:field="*{id}" readonly="readonly">
+                    <input type="hidden" th:field="*{id}" readonly="readonly">
                 </td>
             </tr>
 
