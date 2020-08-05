@@ -16,7 +16,7 @@ public class StormtrooperServiceImpl implements StormtrooperService {
 
     private StormtrooperDao stormtrooperDao;
 
-    public StormtrooperServiceImpl(@Qualifier("StormtrooperDaoImplJdbcTemplate")StormtrooperDao stormtrooperDao) {
+    public StormtrooperServiceImpl(StormtrooperDao stormtrooperDao) {
         this.stormtrooperDao = stormtrooperDao;
     }
 
