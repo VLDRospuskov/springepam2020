@@ -1,29 +1,26 @@
 package com.epam.springepam2020.service.impl;
 
-import com.epam.springepam2020.dao.StormtrooperDao;
 import com.epam.springepam2020.exception.StormtrooperException;
 import com.epam.springepam2020.model.Stormtrooper;
 import com.epam.springepam2020.repository.StormtrooperRepository;
 import com.epam.springepam2020.service.StormtrooperService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class StormtrooperServiceImpl implements StormtrooperService {
 
-    private StormtrooperDao stormtrooperDao;
-    private StormtrooperRepository stormtrooperRepository;
-
-    public StormtrooperServiceImpl(StormtrooperDao stormtrooperDao, StormtrooperRepository stormtrooperRepository) {
-        this.stormtrooperDao = stormtrooperDao;
-        this.stormtrooperRepository = stormtrooperRepository;
-    }
+    private final StormtrooperRepository stormtrooperRepository;
 
     @Override
     public List<Stormtrooper> getAll() {
-        return stormtrooperDao.getAll();
+        return stormtrooperRepository.findAll();
     }
 
     @Override
@@ -38,7 +35,7 @@ public class StormtrooperServiceImpl implements StormtrooperService {
 
     @Override
     public void deleteById(Integer id) {
-        stormtrooperDao.deleteById(id);
+        stormtrooperRepository.deleteById(id);
     }
 
     @Override
@@ -46,7 +43,7 @@ public class StormtrooperServiceImpl implements StormtrooperService {
         if (checkIfStormtrooperNameIsExist(stormtrooper)) {
             throw new StormtrooperException("Stormtrooper with that name is already exist");
         } else {
-            stormtrooperDao.save(stormtrooper);
+            stormtrooperRepository.save(stormtrooper);
         }
     }
 
