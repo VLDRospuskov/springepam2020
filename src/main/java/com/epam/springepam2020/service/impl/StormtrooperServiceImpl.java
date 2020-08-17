@@ -3,9 +3,8 @@ package com.epam.springepam2020.service.impl;
 import com.epam.springepam2020.dao.StormtrooperDao;
 import com.epam.springepam2020.exception.StormtrooperException;
 import com.epam.springepam2020.model.Stormtrooper;
+import com.epam.springepam2020.repository.StormtrooperRepository;
 import com.epam.springepam2020.service.StormtrooperService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,9 +14,11 @@ import java.util.stream.Collectors;
 public class StormtrooperServiceImpl implements StormtrooperService {
 
     private StormtrooperDao stormtrooperDao;
+    private StormtrooperRepository stormtrooperRepository;
 
-    public StormtrooperServiceImpl(StormtrooperDao stormtrooperDao) {
+    public StormtrooperServiceImpl(StormtrooperDao stormtrooperDao, StormtrooperRepository stormtrooperRepository) {
         this.stormtrooperDao = stormtrooperDao;
+        this.stormtrooperRepository = stormtrooperRepository;
     }
 
     @Override
@@ -47,6 +48,11 @@ public class StormtrooperServiceImpl implements StormtrooperService {
         } else {
             stormtrooperDao.save(stormtrooper);
         }
+    }
+
+    @Override
+    public Stormtrooper getStormtrooperByAge(Byte age) {
+        return stormtrooperRepository.findByAge(age);
     }
 
     private boolean checkIfStormtrooperNameIsExist(Stormtrooper stormtrooper) {

@@ -14,4 +14,6 @@ public interface StormtrooperService {
 
     void save(Stormtrooper stormtrooper);
 
+    Stormtrooper getStormtrooperByAge(Byte age);
+
 }
