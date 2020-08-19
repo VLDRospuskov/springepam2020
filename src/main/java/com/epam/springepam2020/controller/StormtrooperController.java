@@ -2,67 +2,60 @@ package com.epam.springepam2020.controller;
 
 import com.epam.springepam2020.model.Stormtrooper;
 import com.epam.springepam2020.service.StormtrooperService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.Operation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+import static com.epam.springepam2020.constants.ApiConstants.STORMTROOPER_PATH;
+
+@RestController
+@RequiredArgsConstructor
 public class StormtrooperController {
 
-    @Autowired
-    private StormtrooperService stormtrooperService;
+    private final StormtrooperService stormtrooperService;
 
-    // GetAll
-    @GetMapping("/")
-    public String getAllStormtroopers(Model model) {
-        List<Stormtrooper> stormtroopers = stormtrooperService.getAll();
-        model.addAttribute("listStormtroopers", stormtroopers);
-        return "listStormtroopers";
+    @GetMapping("/admin/get")
+    public String getAdmin() {
+        return "Hi admin";
     }
 
-    // Add
-    @GetMapping("/addStormtrooper")
-    public String getFormStormtrooper(Model model) {
-        model.addAttribute("stormtrooper", new Stormtrooper());
-        return "addStormtrooper";
+    @GetMapping("/user/get")
+    public String getUser() {
+        return "Hi user";
     }
 
-    @PostMapping("/save")
-    public String addStormtrooper(Stormtrooper stormtrooper, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "addStormtrooper";
-        }
-        stormtrooperService.save(stormtrooper);
-        return "redirect:/";
+    @GetMapping(STORMTROOPER_PATH)
+    public List<Stormtrooper> getAllStormtroopers() {
+        return stormtrooperService.getAll();
     }
 
-    // Delete
-    @GetMapping("/delete/{id}")
-    public String deleteStormtrooper(@PathVariable("id") Integer id) {
+    @PostMapping(STORMTROOPER_PATH)
+    @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Create stormtrooper")
+    public Stormtrooper createStormtrooper(@RequestBody Stormtrooper stormtrooper) {
+        return stormtrooperService.create(stormtrooper);
+    }
+
+    @DeleteMapping(STORMTROOPER_PATH + "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteStormtrooper(@PathVariable("id") Integer id) {
         stormtrooperService.deleteById(id);
-        return "redirect:/";
     }
 
-    // Update
-    @GetMapping("/update/{id}")
-    public String editStormtrooper(@PathVariable("id") Integer id, Model model) {
-        Stormtrooper updatedStormtrooper = stormtrooperService.updateById(id);
-        model.addAttribute("stormtrooper", updatedStormtrooper);
-        return "updateStormtrooper";
+    @PatchMapping(STORMTROOPER_PATH + "/{id}")
+    public Stormtrooper editStormtrooper(
+            @PathVariable("id") Integer id, @RequestBody Stormtrooper stormtrooperToUpdate
+    ) {
+        return stormtrooperService.editById(id, stormtrooperToUpdate);
     }
 
-    // RestController = Controller + ResponseBody
-    @PostMapping("/find")
-    @ResponseBody
-    public Stormtrooper findByAge(@Param("age") Byte age) {
-        return stormtrooperService.getStormtrooperByAge(age);
+    @PostMapping("/filter")
+    public Stormtrooper stormtrooperFilter(@RequestParam("age") Byte age) {
+        return stormtrooperService.getStormtrooperByFilters(age);
     }
+
 }

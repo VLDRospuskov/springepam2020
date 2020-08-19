@@ -8,12 +8,14 @@ public interface StormtrooperService {
 
     List<Stormtrooper> getAll();
 
+    Stormtrooper getById(Integer id);
+
     void deleteById(Integer id);
 
-    Stormtrooper updateById(Integer id);
+    Stormtrooper editById(Integer id, Stormtrooper stormtrooperToUpdate);
 
-    void save(Stormtrooper stormtrooper);
+    Stormtrooper create(Stormtrooper stormtrooper);
 
-    Stormtrooper getStormtrooperByAge(Byte age);
+    Stormtrooper getStormtrooperByFilters(Byte age);
 
 }

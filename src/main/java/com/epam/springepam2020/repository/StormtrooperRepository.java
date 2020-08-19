@@ -7,4 +7,6 @@ public interface StormtrooperRepository extends JpaRepository<Stormtrooper, Inte
 
     Stormtrooper findByAge(Byte age);
 
+    Stormtrooper findByLogin(String login);
+
 }

@@ -12,9 +12,14 @@ public class Stormtrooper {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    private String name;
+    private String login;
+
+    private String password;
 
     private Byte age;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "weapon_id")
