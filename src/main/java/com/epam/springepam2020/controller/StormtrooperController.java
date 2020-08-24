@@ -18,16 +18,6 @@ public class StormtrooperController {
 
     private final StormtrooperService stormtrooperService;
 
-    @GetMapping("/admin/get")
-    public String getAdmin() {
-        return "Hi admin";
-    }
-
-    @GetMapping("/user/get")
-    public String getUser() {
-        return "Hi user";
-    }
-
     @GetMapping(STORMTROOPER_PATH)
     public List<Stormtrooper> getAllStormtroopers() {
         return stormtrooperService.getAll();

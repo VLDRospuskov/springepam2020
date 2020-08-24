@@ -10,6 +10,10 @@ public interface StormtrooperService {
 
     Stormtrooper getById(Integer id);
 
+    Stormtrooper getByLogin(String login);
+
+    Stormtrooper getByLoginAndPassword(String login, String password);
+
     void deleteById(Integer id);
 
     Stormtrooper editById(Integer id, Stormtrooper stormtrooperToUpdate);

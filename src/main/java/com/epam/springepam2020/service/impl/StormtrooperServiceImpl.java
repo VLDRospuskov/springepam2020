@@ -34,6 +34,22 @@ public class StormtrooperServiceImpl implements StormtrooperService {
     }
 
     @Override
+    public Stormtrooper getByLogin(String login) {
+        return stormtrooperRepository.findByLogin(login);
+    }
+
+    @Override
+    public Stormtrooper getByLoginAndPassword(String login, String password) {
+        Stormtrooper stormtrooper = getByLogin(login);
+        if (stormtrooper != null) {
+            if (passwordEncoder.matches(password, stormtrooper.getPassword())) {
+                return stormtrooper;
+            }
+        }
+        throw new StormtrooperNotFoundException("Stromtrooper not found");
+    }
+
+    @Override
     public Stormtrooper create(Stormtrooper stormtrooper) {
         if (checkIfStormtrooperNameIsExist(stormtrooper)) {
             throw new StormtrooperNotFoundException("Stormtrooper with that login is already exist");
