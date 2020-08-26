@@ -3,6 +3,8 @@ package com.epam.springepam2020.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -24,6 +26,18 @@ public class Stormtrooper {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "weapon_id")
     private Weapon weapon;
+
+    // error
+    @OneToMany(mappedBy = "stormtrooper", cascade = CascadeType.ALL)
+    private List<Address> addresses;
+
+    public List<Address> getAddresses() {
+        if (addresses == null) {
+            addresses = new ArrayList<>();
+        }
+
+        return addresses;
+    }
 
     // AUTO
     // IDENTITY

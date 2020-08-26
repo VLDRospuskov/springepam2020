@@ -56,7 +56,9 @@ public class StormtrooperServiceImpl implements StormtrooperService {
         } else {
             stormtrooper.setRole(ROLE_PRIVATE);
             stormtrooper.setPassword(passwordEncoder.encode(stormtrooper.getPassword()));
-            return stormtrooperRepository.save(stormtrooper);
+            final Stormtrooper createdStormtrooper = stormtrooperRepository.save(stormtrooper);
+            createdStormtrooper.getAddresses().forEach(address -> address.setStormtrooper(createdStormtrooper));
+            return createdStormtrooper;
         }
     }
 

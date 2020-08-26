@@ -8,4 +8,6 @@ public interface ApiConstants {
     String BASE_PATH = "/api/v0";
 
     String STORMTROOPER_PATH = BASE_PATH + "/stormtroopers";
+
+    String ADDRESS_PATH = BASE_PATH + "/addresses";
 }
