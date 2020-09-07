@@ -7,14 +7,18 @@ import com.epam.springepam2020.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder(toBuilder = true)
 public class StormtrooperResponseDto {
 
+    @NotBlank
     private String login;
 
     private Integer age;

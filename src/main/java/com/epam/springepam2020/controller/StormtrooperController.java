@@ -13,6 +13,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static com.epam.springepam2020.constants.ApiConstants.STORMTROOPER_PATH;
@@ -41,7 +42,7 @@ public class StormtrooperController {
     @PostMapping(STORMTROOPER_PATH)
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create stormtrooper")
-    public StormtrooperResponseDto createStormtrooper(@RequestBody StormtrooperDto stormtrooperDto) {
+    public StormtrooperResponseDto createStormtrooper(@RequestBody @Valid StormtrooperDto stormtrooperDto) {
         Stormtrooper stormtrooper = converter.convert(stormtrooperDto, Stormtrooper.class);
         Stormtrooper createdStormtrooper = stormtrooperService.create(stormtrooper);
         return  converter.convert(createdStormtrooper, StormtrooperResponseDto.class);
